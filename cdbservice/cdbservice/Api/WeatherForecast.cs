@@ -1,4 +1,4 @@
-namespace cdbservice
+namespace cdbservice.Api
 {
     public class WeatherForecast
     {
