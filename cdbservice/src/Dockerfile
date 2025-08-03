@@ -12,10 +12,9 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["cdbservice/cdbservice/cdbservice.csproj", "cdbservice/cdbservice/"]
-RUN dotnet restore "./cdbservice/cdbservice/cdbservice.csproj"
+COPY ["cdbservice.csproj", "./"]
+RUN dotnet restore "./cdbservice.csproj"
 COPY . .
-WORKDIR "/src/cdbservice/cdbservice"
 RUN dotnet build "./cdbservice.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Esta fase é usada para publicar o projeto de serviço a ser copiado para a fase final
