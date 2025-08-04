@@ -1,59 +1,166 @@
-# Cdbportal
+# 📈 cdbportal
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.4.
+Simulador de CDB com layout SPA (Single Page Application) desenvolvido em **Angular 20.1.4** com suporte a **SSR (Server-Side Rendering)**, integrado com uma API .NET que realiza o cálculo de retorno de investimento.
 
-## Development server
+---
 
-To start a local development server, run:
+## 📘 Visão Geral
 
-```bash
-ng serve
+O projeto `cdbportal` tem como objetivo fornecer uma interface interativa para simular investimentos em CDB, consumindo os dados de retorno de uma API .NET. Foi desenvolvido com foco em boas práticas de arquitetura, DDD, SOLID e otimizações modernas como SSR e Docker.
+
+---
+
+## 🚀 Tecnologias Utilizadas
+
+- [Angular 20.1.4](https://angular.io/)
+- [Node.js 22.18.0](https://nodejs.org/)
+- [NPM 11.5.2](https://www.npmjs.com/)
+- [Docker](https://www.docker.com/)
+- [RxJS](https://rxjs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [API externa em .NET 8](https://dotnet.microsoft.com/en-us/)
+
+---
+
+## 🛠️ Estrutura de Pastas
+
+```
+src/
+├── app/
+│   ├── components/
+│   │   └── simulador-cdb/
+│   ├── services/
+│   ├── models/
+│   ├── app.config.ts
+│   ├── app.routes.ts
+│   ├── app.ts
+├── environments/
+│   └── environment.ts
+├── main.ts
+├── main.server.ts
+├── server.ts
+├── styles.css
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🖥️ Pré-requisitos
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Node.js `v22.18.0` ou superior
+- Angular CLI `v20.1.4`
+- Docker instalado (caso queira rodar com Docker)
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## ⚙️ Instalação e Execução Local
 
 ```bash
-ng build
+# Instale as dependências
+npm install
+
+# Execute o projeto em modo de desenvolvimento
+npm run start
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 🐳 Executando com Docker
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Build da imagem Docker:
 
 ```bash
-ng test
+docker build -t cdbportal .
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### Executar o container:
 
 ```bash
-ng e2e
+docker run -d -p 4200:80 --name cdbportal-container cdbportal
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+O projeto estará disponível em:
 
-## Additional Resources
+[http://localhost:4200](http://localhost:4200)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+> Certifique-se de que o build Angular foi gerado corretamente para produção (`dist/cdbportal`) antes de executar o container.
+
+---
+
+
+Certifique-se de que a porta `4200` (frontend) está liberada.
+
+---
+
+## 📡 Comunicação com a API .NET
+
+A URL da API está centralizada em:
+
+```
+src/config/api-url.config.ts
+```
+
+O método chamado é:
+
+```http
+POST /api/Cdb/calcularretornoinvestimento
+```
+
+---
+
+## 🔍 Funcionalidades
+
+- 💰 Simulação de retorno de investimento em CDB
+- 🔧 Validações de formulário com `ReactiveForms`
+- ⌛ Loading spinner durante o cálculo
+- 💡 Feedback para erros de API ou timeout
+- 📐 Layout com menu lateral e SPA
+- 🌐 SSR (Server-Side Rendering) ativado
+
+---
+
+## 📁 Configurações de Ambiente
+
+O arquivo de ambiente está localizado em:
+
+```ts
+src/environments/environment.ts
+```
+
+Exemplo:
+
+```ts
+export const environment = {
+  apiUrl: 'http://localhost:8080'
+};
+```
+
+---
+
+## 🧪 Testes
+
+🛣️ **No roadmap**: Os testes com **Karma/Jasmine** serão incluídos em versões futuras.
+
+---
+
+## 📦 Build e Deploy
+
+### Build para produção:
+
+```bash
+npm run build:ssr
+```
+
+### Servir SSR local:
+
+```bash
+npm run serve:ssr
+```
+
+---
+
+## 🐞 Problemas Conhecidos
+
+- A funcionalidade SSR pode não funcionar corretamente com todos os navegadores legados.
+- O tempo de resposta da API .NET pode afetar a UX se não for otimizado.
+
+---
