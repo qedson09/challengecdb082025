@@ -1,10 +1,11 @@
-using cdbservice.Api;
 using cdbservice.Core.UseCases;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 
 namespace cdbservice.Api.Controllers
 {
+    [ExcludeFromCodeCoverage]
     [ApiController]
     [Route("api/[controller]")]
     public class CdbController(IMediator mediator) : ControllerBase

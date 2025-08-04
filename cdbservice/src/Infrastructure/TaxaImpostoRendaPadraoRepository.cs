@@ -6,10 +6,16 @@ namespace cdbservice.Infrastructure
     {
         public decimal ObterAliquotaPorPrazo(int meses)
         {
-            if (meses <= 6) return 0.225m;
-            if (meses <= 12) return 0.20m;
-            if (meses <= 24) return 0.175m;
-            return 0.15m;
+            if (meses <= 0)
+                throw new ArgumentException("O número de meses deve ser maior que zero.", nameof(meses));
+
+            return meses switch
+            {
+                <= 6 => 0.225m,
+                <= 12 => 0.20m,
+                <= 24 => 0.175m,
+                _ => 0.15m
+            };
         }
     }
 }

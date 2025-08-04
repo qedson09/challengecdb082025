@@ -1,10 +1,11 @@
 ﻿using cdbservice.Core.Domain;
 using cdbservice.Core.UseCases;
 using cdbservice.Infrastructure;
-using System.Reflection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace cdbservice.Api.Extensions
 {
+    [ExcludeFromCodeCoverage]
     public static class DependencyInjectionExtensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
