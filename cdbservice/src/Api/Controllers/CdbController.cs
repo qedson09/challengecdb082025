@@ -12,8 +12,8 @@ namespace cdbservice.Api.Controllers
     {
         private readonly IMediator _mediator = mediator;
 
-        [HttpPost("calcular")]
-        public async Task<IActionResult> Calcular([FromBody] CalcularCdbPosFixadoCommand command)
+        [HttpPost("calcularretornoinvestimento")]
+        public async Task<IActionResult> CalcularRetornoInvestimento([FromBody] CalcularCdbPosFixadoCommand command)
         {
             var resultado = await _mediator.Send(command);
             return Ok(resultado);
