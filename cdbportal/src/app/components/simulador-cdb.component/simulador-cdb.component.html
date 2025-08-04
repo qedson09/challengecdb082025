@@ -15,3 +15,13 @@
     {{ loading ? 'Calculando...' : 'Calcular' }}
   </button>
 </form>
+
+<div *ngIf="resultado">
+  <h3>Resultado:</h3>
+  <p>Valor Bruto: {{ resultado.valorBruto }}</p>
+  <p>Valor Líquido: {{ resultado.valorLiquido }}</p>
+</div>
+
+<div *ngIf="errorMessage" class="error">
+  {{ errorMessage }}
+</div>

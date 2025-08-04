@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "build": "npm run build:client",
     "build:client": "ng build --configuration production",
     "build:server": "ng run cdbportal:server:production",
     "build:ssr": "npm run build:client && npm run build:server",

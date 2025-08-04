@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SimuladorCdbService } from '../../services/simulador-cdb.service';
+import { RetornoInvestimento } from '../../models/retorno-investimento';
 
 @Component({
   selector: 'app-simulador-cdb',
@@ -12,7 +13,7 @@ import { SimuladorCdbService } from '../../services/simulador-cdb.service';
 })
 export class SimuladorCdbComponent {
   form: FormGroup;
-  resultado: any = null;
+  resultado: RetornoInvestimento | null = null;
   errorMessage: string | null = null;
   loading = false;
 
@@ -24,21 +25,26 @@ export class SimuladorCdbComponent {
   }
 
   async calcular(): Promise<void> {
-    if (this.form.invalid) return;
+  if (this.form.invalid) return;
 
-    this.loading = true;
-    this.resultado = null;
-    this.errorMessage = null;
+  this.loading = true;
+  this.resultado = null;
+  this.errorMessage = null;
 
-    try {
-      this.resultado = await this.service.calcularRetornoInvestimento(
-        this.form.value.valorInicial,
-        this.form.value.meses
-      );
-    } catch (error: any) {
-      this.errorMessage = error.message;
-    } finally {
-      this.loading = false;
+  try {
+    this.resultado = await this.service.calcularRetornoInvestimento(
+      this.form.value.valorInicial,
+      this.form.value.meses
+    );
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      this.errorMessage = err.message;
+    } else {
+      this.errorMessage = 'Erro desconhecido.';
     }
+  } finally {
+    this.loading = false;
   }
+}
+
 }

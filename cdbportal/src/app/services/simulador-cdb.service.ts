@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ApiUrls } from '../config/api-url.config';
-import { RetornoInvestimentoDto } from '../models/retorno-investimento.dto';
+import { RetornoInvestimento } from '../models/retorno-investimento';
 
 @Injectable({ providedIn: 'root' })
 export class SimuladorCdbService {
-  async calcularRetornoInvestimento(valorInicial: number, meses: number): Promise<RetornoInvestimentoDto> {
+  async calcularRetornoInvestimento(valorInicial: number, meses: number): Promise<RetornoInvestimento> {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000); // 10 segundos
 
