@@ -11,10 +11,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-// FluentValidation (opcional, se estiver usando validadores)
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<CalcularCdbPosFixadoCommandValidator>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod(); // Permite POST, OPTIONS, etc.
+    });
+});
 
 // DI customizado
 builder.Services.AddApplicationServices();
@@ -34,4 +42,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+app.UseCors();
+
+// Await RunAsync instead of Run to fix S6966 diagnostic
+await app.RunAsync();

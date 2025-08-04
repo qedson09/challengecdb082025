@@ -4,10 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build:client": "ng build --configuration production",
+    "build:server": "ng run cdbportal:server:production",
+    "build:ssr": "npm run build:client && npm run build:server",
+    "serve:ssr": "node dist/cdbportal/server/server.mjs",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:cdbportal": "node dist/cdbportal/server/server.mjs"
+    "test": "ng test"
   },
   "prettier": {
     "overrides": [
@@ -37,9 +39,11 @@
     "@angular/build": "^20.1.4",
     "@angular/cli": "^20.1.4",
     "@angular/compiler-cli": "^20.1.0",
+    "@angular-devkit/build-angular": "^20.1.4",
     "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.17.19",
+    "browser-sync": "^3.0.4",
     "jasmine-core": "~5.8.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

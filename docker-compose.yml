@@ -1,10 +1,19 @@
-services:
+﻿services:
   cdbservice:
     build:
       context: ./cdbservice/src
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"   # Porta HTTP
-      - "8081:8081"   # Porta HTTPS
+      - "8080:8080"
+      - "8081:8081"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+
+  cdbportal:
+    build:
+      context: ./cdbportal
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4000"  
+    depends_on:
+      - cdbservice
