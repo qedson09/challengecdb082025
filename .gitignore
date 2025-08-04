@@ -416,3 +416,4 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+/cdbservice/tests/cdbservice.Tests/coveragereport
