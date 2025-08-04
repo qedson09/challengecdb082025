@@ -1,6 +1,6 @@
 ﻿namespace cdbservice.Core.Domain
 {
-    public class CdbPosFixado : ProdutoRendaFixa
+    public class CdbPosFixado : IProdutoRendaFixa
     {
         private readonly decimal _valorInicial;
         private readonly decimal _taxaCdi;
@@ -16,7 +16,7 @@
             _taxaImposto = aliquotaImposto;
         }
         
-        public override RetornoInvestimento CalcularRetornoInvestimento(int meses)
+        public RetornoInvestimento CalcularRetornoInvestimento(int meses)
         {
             if (meses <= 1)
                 throw new ArgumentException("Número de meses deve ser maior que 1.");
