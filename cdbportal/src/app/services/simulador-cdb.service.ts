@@ -24,9 +24,23 @@ export class SimuladorCdbService {
       return await response.json();
     } catch (err: any) {
       if (err.name === 'AbortError') {
-        throw new Error('Timeout: servidor demorou muito para responder.');
+        throw new Error('Tempo de resposta excedido. O servidor demorou muito para responder.');
       }
-      throw err;
+
+      if (
+        err instanceof TypeError &&
+        (
+          err.message === 'Failed to fetch' ||
+          err.message.includes('NetworkError') ||
+          err.message.includes('ERR_CONNECTION_REFUSED') ||
+          err.message.includes('ECONNREFUSED')
+        )
+      ) {
+        throw new Error('Serviço temporariamente indisponível. Tente novamente mais tarde.');
+      }
+
+      console.error('Erro inesperado:', err);
+      throw new Error(err.message || 'Erro inesperado ao calcular o retorno.');
     } finally {
       clearTimeout(timeout);
     }

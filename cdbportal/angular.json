@@ -10,12 +10,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/cdbportal",
-            "browser": "src/main.ts",
-            "server": "src/main.server.ts",
-            "outputMode": "server",
+            "index": "src/index.html",
+            "main": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
@@ -26,10 +25,7 @@
             ],
             "styles": [
               "src/styles.css"
-            ],
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            ]
           },
           "configurations": {
             "production": {

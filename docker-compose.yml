@@ -14,6 +14,6 @@
       context: ./cdbportal
       dockerfile: Dockerfile
     ports:
-      - "4200:4000"  
+      - "4200:80"
     depends_on:
       - cdbservice

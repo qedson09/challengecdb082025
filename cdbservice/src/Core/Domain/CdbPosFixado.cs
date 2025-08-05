@@ -30,6 +30,9 @@
             }
 
             decimal valorLiquido = valorBruto * (1 - _taxaImposto);
+
+            valorBruto = Math.Round(valorBruto, 2);
+            valorLiquido = Math.Round(valorLiquido, 2);
             return new RetornoInvestimento(valorBruto, valorLiquido);
         }
     }

@@ -1,29 +1,26 @@
-# Etapa 1: Build Angular SSR (Client + Server)
+# Etapa 1: Build Angular SPA
 FROM node:22.12.0 AS builder
 
 WORKDIR /app
 
-# Instala dependências
 COPY package*.json ./
 RUN npm install
 
-# Copia o restante do projeto e executa o build SSR (client + server)
 COPY . .
-RUN npm run build:client
+RUN npm run build
 
-# Etapa 2: Runtime com Node.js
-FROM node:22.12.0-alpine
+# Etapa 2: Servidor NGINX
+FROM nginx:stable-alpine
 
-WORKDIR /app
+WORKDIR /usr/share/nginx/html
 
-# Copia apenas os arquivos necessários para rodar a aplicação
-COPY --from=builder /app/dist /app/dist
-COPY --from=builder /app/package*.json ./
+# Copia os arquivos buildados do Angular para o nginx
+COPY --from=builder /app/dist/cdbportal .
 
-# Instala apenas dependências de produção
-RUN npm install --omit=dev
+# Remove o default.conf e adiciona custom SPA config
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/
 
-EXPOSE 4000
+EXPOSE 80
 
-# Usa o script "serve:ssr" do package.json
-CMD ["npm", "run", "serve:ssr"]
+CMD ["nginx", "-g", "daemon off;"]
